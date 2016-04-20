@@ -111,7 +111,9 @@ class StudentTableViewController: UITableViewController,UINavigationBarDelegate 
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if StudentClient.sharedInstance().studentLocations[indexPath.row].mediaURL != "" {
         UIApplication.sharedApplication().openURL(NSURL(string: StudentClient.sharedInstance().studentLocations[indexPath.row].mediaURL)!)
+        }
     }
     
 }

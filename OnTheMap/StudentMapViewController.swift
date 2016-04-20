@@ -73,8 +73,7 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate,UINavigationB
         StudentClient.sharedInstance().getStudentLocations { (success, errorString) -> Void in
             if(success) {
                 self.loadStudentAnnotationsToMapView()
-            }
-            else{
+            }else{
                 Helper.displayAlert(inViewController: self.alert!, withTitle: "Error", message: "Error dowmloading student data", completionHandler: { (alertAction) -> Void in
                     self.alert!.dismissViewControllerAnimated(true, completion: nil)
                 })
@@ -136,7 +135,9 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate,UINavigationB
     }
     
     func openLink(sender: AnyObject) {
+        if selected?.subtitle != nil {
         UIApplication.sharedApplication().openURL(NSURL(string: selected!.subtitle!!)!)
+        }
     }
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {

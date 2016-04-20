@@ -40,6 +40,8 @@ class InformationPostingViewController: UIViewController {
         mapView.hidden = true
         submitButton.hidden = true
         activityIndicator.hidden = true
+        linkTextView.text = "Enter your link here "
+        locationTextView.text = "Enter the location where you are studying here"
         
         submitButton.layer.cornerRadius = 5
         findMapButton.layer.cornerRadius = 5
@@ -130,6 +132,7 @@ class InformationPostingViewController: UIViewController {
     // Post student information
     @IBAction func submitLink(sender: AnyObject) {
         let mediaURL = self.linkTextView.text.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        print(mediaURL)
         if Helper.isConnectedToNetwork(){
         if UIApplication.sharedApplication().canOpenURL(NSURL(string: mediaURL)!) {
             Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: true)
