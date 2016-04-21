@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1125953D1CC8C934007EEEC7 /* StudentLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1125953C1CC8C934007EEEC7 /* StudentLocations.swift */; };
 		A87E89241AEDF8EC005A2623 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87E89231AEDF8EC005A2623 /* AppDelegate.swift */; };
 		A87E89261AEDF8EC005A2623 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87E89251AEDF8EC005A2623 /* LoginViewController.swift */; };
 		A87E89291AEDF8EC005A2623 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A87E89271AEDF8EC005A2623 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1125953C1CC8C934007EEEC7 /* StudentLocations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocations.swift; sourceTree = "<group>"; };
 		A87E891E1AEDF8EC005A2623 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A87E89221AEDF8EC005A2623 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A87E89231AEDF8EC005A2623 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		A87E89201AEDF8EC005A2623 /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
+				1125953C1CC8C934007EEEC7 /* StudentLocations.swift */,
 				A87E89231AEDF8EC005A2623 /* AppDelegate.swift */,
 				A87E89251AEDF8EC005A2623 /* LoginViewController.swift */,
 				A8EA66861B61E9A100A4115B /* StudentClient.swift */,
@@ -242,6 +245,7 @@
 				A87E89441AF6CFD0005A2623 /* StudentMapViewController.swift in Sources */,
 				A87E89461AF6CFF2005A2623 /* StudentTableViewController.swift in Sources */,
 				A87E89481AF6E3C8005A2623 /* StudentLocation.swift in Sources */,
+				1125953D1CC8C934007EEEC7 /* StudentLocations.swift in Sources */,
 				A8EA66891B6AB0FD00A4115B /* InformationPostingViewController.swift in Sources */,
 				A8EA668B1B6D274500A4115B /* UdacityUser.swift in Sources */,
 				A8EA66871B61E9A100A4115B /* StudentClient.swift in Sources */,
