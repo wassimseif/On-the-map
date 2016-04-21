@@ -13,5 +13,5 @@ import UIKit
 public class model {
     
     
-    var studentLocations = [StudentLocation]()
+    static var studentLocations = [StudentLocation]()
 }
