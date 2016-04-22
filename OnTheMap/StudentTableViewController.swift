@@ -33,18 +33,20 @@ class StudentTableViewController: UITableViewController,UINavigationBarDelegate 
             self.presentViewController(alert, animated: true, completion: nil)
 
         }
+        
+        
     }
     
     override func viewWillAppear(animated: Bool) {
-        // Create the navigation bar
-        let navigationBar = UINavigationBar(frame: CGRectMake(0, 20, self.view.frame.size.width, 44))
-        navigationBar.backgroundColor = UIColor.whiteColor()
-        navigationBar.delegate = self;
-        
-        // Create a navigation item with a title
-        let navigationItem = UINavigationItem()
-        navigationItem.title = "On The Map"
-        
+//        // Create the navigation bar
+//        let navigationBar = UINavigationBar(frame: CGRectMake(0, 20, self.view.frame.size.width, 44))
+//        navigationBar.backgroundColor = UIColor.whiteColor()
+//        navigationBar.delegate = self;
+//        
+//        // Create a navigation item with a title
+//        let navigationItem = UINavigationItem()
+//        navigationItem.title = "On The Map"
+//        
         // Create left and right button for navigation item
         let logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logoutButton")
         let postButton = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapPost")
@@ -55,10 +57,20 @@ class StudentTableViewController: UITableViewController,UINavigationBarDelegate 
         navigationItem.setRightBarButtonItems([refreshButton,postButton], animated: true)
         
         // Assign the navigation item to the navigation bar
-        navigationBar.items = [navigationItem]
+       // navigationBar.items = [navigationItem]
         
         // Make the navigation bar a subview of the current view controller
-        self.view.addSubview(navigationBar)
+       // let ns = NSLayoutConstraint(item: navigationBar, attribute: .Top , relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: 0)
+        //navigationBar.addConstraint(ns)
+      //  self.view.addSubview(navigationBar)
+        
+        
+        navigationController?.title = "On The Map 2 "
+        
+        navigationController?.navigationBar.items = [navigationItem]
+        
+        
+        
 
         // Reload table view
         var studentLocations = StudentClient.sharedInstance().studentLocations
