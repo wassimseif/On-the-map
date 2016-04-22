@@ -41,7 +41,7 @@ class StudentClient : NSObject{
                             var student = StudentLocation(dictionary: result as! NSDictionary)
                             temp.append(student)
                         }
-                        self.studentLocations = temp
+                         model.studentLocations = temp
                         completionHandler(success: true, errorString: nil)
                     }else {
                         completionHandler(success: false, errorString: "Problem in result data.")
