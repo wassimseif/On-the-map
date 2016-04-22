@@ -65,7 +65,9 @@ class StudentTableViewController: UITableViewController,UINavigationBarDelegate 
       //  self.view.addSubview(navigationBar)
         
         
-        navigationController?.title = "On The Map 2 "
+        navigationController?.title = "On The Map  "
+        
+        navigationController?.navigationBar.topItem?.title = "On the map"
         
         navigationController?.navigationBar.items = [navigationItem]
         
