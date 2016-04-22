@@ -34,7 +34,7 @@ class StudentClient : NSObject{
             if error != nil {
                 print("Could not complete the request \(error)")
                 completionHandler(success: false, errorString: error!.description)
-            } else {
+            } else if error == nil {
                 StudentClient.parseJSONWithCompletionHandler(data!) { (result, error) -> Void in
                     if let results = result["results"] as? [AnyObject] {
                         for result in results {
@@ -47,6 +47,8 @@ class StudentClient : NSObject{
                         completionHandler(success: false, errorString: "Problem in result data.")
                     }
                 }
+            }else {
+                print("Could not reach server here")
             }
         }
         task.resume()
