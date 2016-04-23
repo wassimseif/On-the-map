@@ -75,7 +75,7 @@ class StudentTableViewController: UITableViewController,UINavigationBarDelegate 
         
 
         // Reload table view
-        var studentLocations = StudentClient.sharedInstance().studentLocations
+        var studentLocations = model.studentLocations
         self.studentsTableView.reloadData()
         
     }
@@ -114,19 +114,19 @@ class StudentTableViewController: UITableViewController,UINavigationBarDelegate 
     
     //MARK: Table View Methods
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return StudentClient.sharedInstance().studentLocations.count
+        return model.studentLocations.count
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("StudentTableViewCell",forIndexPath: indexPath) 
-        cell.textLabel!.text = StudentClient.sharedInstance().studentLocations[indexPath.row].description
+        cell.textLabel!.text = model.studentLocations[indexPath.row].description
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if StudentClient.sharedInstance().studentLocations[indexPath.row].mediaURL != "" {
-        UIApplication.sharedApplication().openURL(NSURL(string: StudentClient.sharedInstance().studentLocations[indexPath.row].mediaURL)!)
+        if model.studentLocations[indexPath.row].mediaURL != "" {
+        UIApplication.sharedApplication().openURL(NSURL(string: model.studentLocations[indexPath.row].mediaURL)!)
         }
     }
     

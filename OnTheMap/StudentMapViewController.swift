@@ -24,6 +24,7 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate,UINavigationB
         if Helper.isConnectedToNetwork(){
         StudentClient.sharedInstance().getStudentLocations { (success, errorString) -> Void in
             if(success) {
+                print("Should load")
                 self.loadStudentAnnotationsToMapView()
             }
             else{
@@ -89,7 +90,7 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate,UINavigationB
     
     // Load student anotations from JSON
     func loadStudentAnnotationsToMapView() {
-        for studentLocation in StudentClient.sharedInstance().studentLocations {
+        for studentLocation in model.studentLocations {
             let studentLocationAnnotation = MKPointAnnotation()
             studentLocationAnnotation.coordinate = CLLocationCoordinate2D(latitude: studentLocation.latitude, longitude: studentLocation.longitude)
             studentLocationAnnotation.title = "\(studentLocation.description)"

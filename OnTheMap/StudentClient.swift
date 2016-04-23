@@ -14,7 +14,7 @@ class StudentClient : NSObject{
     /* Shared session */
     var session: NSURLSession
     
-    var studentLocations: [StudentLocation] = model.studentLocations
+   
     
     override init() {
         session = NSURLSession.sharedSession()
