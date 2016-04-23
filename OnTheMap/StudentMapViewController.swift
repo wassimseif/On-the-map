@@ -20,6 +20,9 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate,UINavigationB
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let alert = UIAlertController(title: "Network error", message: "Please make sure device is connected to Wi-Fi or phone data", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        
         mapView.delegate = self
         if Helper.isConnectedToNetwork(){
         StudentClient.sharedInstance().getStudentLocations { (success, errorString) -> Void in
@@ -28,8 +31,8 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate,UINavigationB
                 self.loadStudentAnnotationsToMapView()
             }
             else{
-                Helper.displayAlert(inViewController: self.alert!, withTitle: "Error", message: "Error dowmloading student data", completionHandler: { (alertAction) -> Void in
-                    self.alert!.dismissViewControllerAnimated(true, completion: nil)
+                Helper.displayAlert(inViewController: self, withTitle: "Error", message: "Error dowmloading student data", completionHandler: { (alertAction) -> Void in
+                    self.dismissViewControllerAnimated(true, completion: nil)
             })
             }
         }
@@ -75,7 +78,7 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate,UINavigationB
             if(success) {
                 self.loadStudentAnnotationsToMapView()
             }else{
-                Helper.displayAlert(inViewController: self.alert!, withTitle: "Error", message: "Error dowmloading student data", completionHandler: { (alertAction) -> Void in
+                Helper.displayAlert(inViewController: self, withTitle: "Error", message: "Error dowmloading student data", completionHandler: { (alertAction) -> Void in
                     self.alert!.dismissViewControllerAnimated(true, completion: nil)
                 })
             }
