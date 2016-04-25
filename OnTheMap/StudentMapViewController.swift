@@ -139,8 +139,10 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate,UINavigationB
     }
     
     func openLink(sender: AnyObject) {
-        if selected?.subtitle != nil {
+        if NSURL(string: selected!.subtitle!!)  != nil {
+            
         UIApplication.sharedApplication().openURL(NSURL(string: selected!.subtitle!!)!)
+            print(UIApplication.sharedApplication().openURL(NSURL(string: selected!.subtitle!!)!))
         }
     }
     
