@@ -139,8 +139,8 @@ class InformationPostingViewController: UIViewController {
     
     // Post student information
     @IBAction func submitLink(sender: AnyObject) {
-        let mediaURL = self.linkTextView.text.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-        print(mediaURL)
+        let mediaURL = self.linkTextView.text
+        
         if Helper.isConnectedToNetwork(){
             if UIApplication.sharedApplication().canOpenURL(NSURL(string: mediaURL)!) {
                 Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: true)
