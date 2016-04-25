@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 class InformationPostingViewController: UIViewController {
-
+    
     @IBOutlet weak var promptLabel: UILabel!
     
     @IBOutlet weak var locationTextView: UITextView!
@@ -73,55 +73,63 @@ class InformationPostingViewController: UIViewController {
         activityIndicator.hidden = false
         submitButton.hidden = false
         if Helper.isConnectedToNetwork(){
-        var geoCoder = CLGeocoder()
-        Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: true)
-        geoCoder.geocodeAddressString(locationTextView.text, completionHandler: { (placemarks, error) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
+            var geoCoder = CLGeocoder()
+            // Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: true)
+            geoCoder.geocodeAddressString(locationTextView.text, completionHandler: { (placemarks, error) -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                })
+                if error == nil {
+                    self.submitButton.hidden = false
+                    self.mapView.hidden = false
+                    self.linkTextView.hidden = false
+                    self.submitButton.hidden = false
+                    
+                    self.promptLabel.hidden = true
+                    self.locationTextView.hidden = true
+                    self.findMapButton.hidden = true
+                    
+                    self.locationTextView.resignFirstResponder()
+                    self.mapString = self.locationTextView.text
+                    
+                    for placemark in placemarks!
+                    {
+                        self.userLocation = (placemark as! CLPlacemark).location
+                        
+                        var enteredLocationAnnotation = MKPointAnnotation()
+                        enteredLocationAnnotation.coordinate = self.userLocation!.coordinate
+                        
+                        self.mapView.addAnnotation(enteredLocationAnnotation)
+                        
+                        self.mapView.centerCoordinate = self.userLocation!.coordinate
+                        
+                        var scale = abs((cos(2 * M_PI * self.userLocation!.coordinate.latitude / 360.0) ))
+                        
+                        var span = MKCoordinateSpan(latitudeDelta: 5/60.0, longitudeDelta: 5/(scale*60.0))
+                        
+                        var region = MKCoordinateRegion(center: self.userLocation!.coordinate, span: span)
+                        
+                        self.mapView.setRegion(region, animated: true)
+                        
+                    }
+                    Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: false)
+                    self.activityIndicator.hidden = true
+                } else {
+                    dispatch_async(dispatch_get_main_queue(),{
+                        self.activityIndicator.stopAnimating()
+                        
+                        self.view.userInteractionEnabled = true
+                        self.activityIndicator.hidden = true
+                        
+                        
+                        var alert = UIAlertController(title: "Geocode Failed", message: "Please enter location in format like Mountain View,CA", preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    })
+                    
+                }
                 
             })
-            if error == nil {
-                self.submitButton.hidden = false
-                self.mapView.hidden = false
-                self.linkTextView.hidden = false
-                self.submitButton.hidden = false
-                
-                self.promptLabel.hidden = true
-                self.locationTextView.hidden = true
-                self.findMapButton.hidden = true
-                
-                self.locationTextView.resignFirstResponder()
-                self.mapString = self.locationTextView.text
-                
-                for placemark in placemarks!
-                {
-                    self.userLocation = (placemark as! CLPlacemark).location
-                    
-                    var enteredLocationAnnotation = MKPointAnnotation()
-                    enteredLocationAnnotation.coordinate = self.userLocation!.coordinate
-                    
-                    self.mapView.addAnnotation(enteredLocationAnnotation)
-                    
-                    self.mapView.centerCoordinate = self.userLocation!.coordinate
-                    
-                    var scale = abs((cos(2 * M_PI * self.userLocation!.coordinate.latitude / 360.0) ))
-                    
-                    var span = MKCoordinateSpan(latitudeDelta: 5/60.0, longitudeDelta: 5/(scale*60.0))
-                
-                    var region = MKCoordinateRegion(center: self.userLocation!.coordinate, span: span)
-                    
-                    self.mapView.setRegion(region, animated: true)
-
-                }
-                Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: false)
-                self.activityIndicator.hidden = true
-            } else {
-                var alert = UIAlertController(title: "Geocode Failed", message: "Please enter location in format like Mountain View,CA", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
-            
-            }
-            
-          })
         } else {
             var alert = UIAlertController(title: "Network error", message: "Please make sure device is connected to Wi-Fi or phone data", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
@@ -134,24 +142,24 @@ class InformationPostingViewController: UIViewController {
         let mediaURL = self.linkTextView.text.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
         print(mediaURL)
         if Helper.isConnectedToNetwork(){
-        if UIApplication.sharedApplication().canOpenURL(NSURL(string: mediaURL)!) {
-            Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: true)
-            StudentClient.sharedInstance().postStudentLocation(self.mapString!, location: self.userLocation!, mediaURL: mediaURL, completionHandler: { (success, errorString) -> Void in
-                dispatch_async(dispatch_get_main_queue(), {
+            if UIApplication.sharedApplication().canOpenURL(NSURL(string: mediaURL)!) {
+                Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: true)
+                StudentClient.sharedInstance().postStudentLocation(self.mapString!, location: self.userLocation!, mediaURL: mediaURL, completionHandler: { (success, errorString) -> Void in
+                    dispatch_async(dispatch_get_main_queue(), {
+                        Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: false)
+                    })
                     Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: false)
+                    if success {
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    } else {
+                        self.raiseRetryAlert("Error", message: errorString!)
+                    }
                 })
-                Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: false)
-                if success {
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                } else {
-                    self.raiseRetryAlert("Error", message: errorString!)
-                }
-            })
-        } else {
-            alert = Helper.displayAlert(inViewController: self, withTitle:"Error", message: "Link is invalid. Please enter a valid URL.", completionHandler: { (alertAction) -> Void in
-                self.alert!.dismissViewControllerAnimated(true, completion: nil)
-            })
-        }
+            } else {
+                alert = Helper.displayAlert(inViewController: self, withTitle:"Error", message: "Link is invalid. Please enter a valid URL.", completionHandler: { (alertAction) -> Void in
+                    self.alert!.dismissViewControllerAnimated(true, completion: nil)
+                })
+            }
         } else {
             let alert = UIAlertController(title: "Network error", message: "Please make sure device is connected to Wi-Fi or phone data", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
